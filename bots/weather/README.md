@@ -1,7 +1,7 @@
 # gas-discord-bots_weather
 
-This is a bot that notifies discord of today's weather.
-Use this site's API as a source of information for weather.
+This is a bot that notifies discord of today's weather.  
+Use this site's API as a source of information for weather.  
 [天気予報 API（livedoor 天気互換）](https://weather.tsukumijima.net/)
 
 ## Specification
@@ -11,7 +11,7 @@ Use this site's API as a source of information for weather.
 
 ## Get Started
 
-First create a new script on GAS.
+First create a new script on GAS.  
 Next, edit `.clasp.json` and enter the ID of your GAS script in `scriptId`.
 
 ```bash

@@ -10,7 +10,7 @@ This is a bot that notifies Discord of Google Calendar schedules.
 
 ## Get Started
 
-First create a new script on GAS.
+First create a new script on GAS.  
 Next, edit `.clasp.json` and enter the ID of your GAS script in `scriptId`.
 
 ```bash
