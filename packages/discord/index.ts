@@ -2,7 +2,7 @@ type PostBody = {
   content: string;
   embeds: Array<{
     title: string;
-    description: string;
+    description?: string;
     color: string;
     footer?: {
       text: string;

@@ -1,0 +1,13 @@
+{
+  "name": "gas-discord-bots_weather",
+  "author": "nabeliwo",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.js",
+    "clasp": "clasp",
+    "push": "pnpm build && clasp push"
+  },
+  "dependencies": {
+    "@package/discord": "workspace:*"
+  }
+}

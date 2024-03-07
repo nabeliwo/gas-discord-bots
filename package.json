@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "google-calendar": "pnpm -F \"gas-discord-bots_google-calendar\"",
+    "weather": "pnpm -F \"gas-discord-bots_weather\"",
     "lint": "eslint **/*.ts",
     "format": "eslint --fix **/*.ts"
   },

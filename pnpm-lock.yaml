@@ -48,6 +48,12 @@ importers:
         specifier: workspace:*
         version: link:../../packages/discord
 
+  bots/weather:
+    dependencies:
+      '@package/discord':
+        specifier: workspace:*
+        version: link:../../packages/discord
+
   packages/discord: {}
 
 packages:
