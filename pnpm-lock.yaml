@@ -42,7 +42,13 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
 
-  bots/google-calendar: {}
+  bots/google-calendar:
+    dependencies:
+      '@package/discord':
+        specifier: workspace:*
+        version: link:../../packages/discord
+
+  packages/discord: {}
 
 packages:
 

@@ -1,0 +1,6 @@
+{
+  "name": "@package/discord",
+  "exports": {
+    ".": "./index.ts"
+  }
+}
