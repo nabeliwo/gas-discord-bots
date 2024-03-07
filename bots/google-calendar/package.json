@@ -1,0 +1,8 @@
+{
+  "name": "gas-discord-bots_google-calendar",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "nabeliwo",
+  "license": "MIT"
+}
