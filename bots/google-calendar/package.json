@@ -1,8 +1,10 @@
 {
   "name": "gas-discord-bots_google-calendar",
-  "scripts": {
-    "build": "node build.js"
-  },
   "author": "nabeliwo",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.js",
+    "clasp": "clasp",
+    "push": "pnpm build && clasp push"
+  }
 }
