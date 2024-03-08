@@ -104,11 +104,7 @@ export function postEventStartNotificationToDiscord() {
   }
 
   discord.sendPost({
-    content: `:information_source: ${event.title} が始まります @${Utilities.formatDate(
-      event.startTime,
-      'JST',
-      'YYYY/MM/dd HH:mm',
-    )} :dash:`,
+    content: `:information_source: ${config.postSchedule.triggerBeforeMinutes}分後に ${event.title} が始まります :dash:`,
     embeds: [
       {
         title: event.title,
