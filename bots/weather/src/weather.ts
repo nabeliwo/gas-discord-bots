@@ -66,13 +66,14 @@ export function getTodaysWeather(): Weather {
 
 export function formatTelopToEmoji(telop: string): string {
   const emojiMap: Record<string, string> = {
-    晴: ':sunny:',
-    曇: ':cloud:',
+    晴れ: ':sunny:',
+    曇り: ':cloud:',
     雨: ':cloud_rain:',
     雪: ':snowman:',
   };
 
-  return telop.replace(/[晴曇雨雪]/g, (matched) => ` ${emojiMap[matched]} `).trim();
+  const pattern = new RegExp(Object.keys(emojiMap).join('|'), 'g');
+  return telop.replace(pattern, (matched) => ` ${emojiMap[matched]} `).trim();
 }
 
 export function formatChanceOfRainToText(chanceOfRain: ChanceOfRain): string {
