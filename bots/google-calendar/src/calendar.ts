@@ -83,10 +83,21 @@ export function initializeCalendarSyncToken() {
 export function getStoredEventsWithUpdate(
   calendarId: string,
 ): GoogleAppsScript.Calendar.Schema.Event[] {
-  const eventsSchema = Calendar.Events?.list(calendarId, {
-    ...config.getOption,
-    syncToken: properties.getProperty(`${config.nextSyncTokenPropertyName}_${calendarId}`),
-  });
+  let eventsSchema: GoogleAppsScript.Calendar.Schema.Events | undefined;
+
+  try {
+    eventsSchema = Calendar.Events?.list(calendarId, {
+      ...config.getOption,
+      syncToken: properties.getProperty(`${config.nextSyncTokenPropertyName}_${calendarId}`),
+    });
+  } catch (e) {
+    if (!(e instanceof Error) || !e.message.includes('Sync token is no longer valid')) {
+      throw e;
+    }
+    // syncTokenの期限切れ時はフルシンクで再初期化（失敗時は例外をそのまま伝播）
+    initializeCalendarSyncToken();
+    return [];
+  }
 
   if (!eventsSchema || !eventsSchema.nextSyncToken) {
     return [];
@@ -130,10 +141,17 @@ export function getUpdateEventStatus(event: GoogleAppsScript.Calendar.Schema.Eve
 }
 
 export function getCalendarsWithEvents(date: Date): Calendar[] {
+  // JST の日付境界を絶対時刻で計算することでカレンダーのタイムゾーン差を吸収する
+  const jstDateStr = Utilities.formatDate(date, 'JST', 'yyyy/MM/dd');
+  const [year, month, day] = jstDateStr.split('/').map(Number);
+  const jstOffsetMs = 9 * 60 * 60 * 1000;
+  const startOfDayJST = new Date(Date.UTC(year, month - 1, day) - jstOffsetMs);
+  const endOfDayJST = new Date(Date.UTC(year, month - 1, day + 1) - jstOffsetMs);
+
   return getAllCalendars().map((calendar) => ({
     id: calendar.getId(),
     name: calendar.getName(),
-    events: calendar.getEventsForDay(date).map((event) => parseEvent(event, calendar)),
+    events: calendar.getEvents(startOfDayJST, endOfDayJST).map((event) => parseEvent(event, calendar)),
   }));
 }
 
