@@ -21,11 +21,11 @@ export function postTodaysWeatherToDiscord() {
           },
           {
             name: '最高気温',
-            value: weather.temperature.max + '度',
+            value: weather.temperature.max != null ? weather.temperature.max + '度' : '--',
           },
           {
             name: '最低気温',
-            value: weather.temperature.min + '度',
+            value: weather.temperature.min != null ? weather.temperature.min + '度' : '--',
           },
           {
             name: '降水確率',

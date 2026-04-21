@@ -30,8 +30,8 @@ type Weather = {
   title: string;
   telop: string;
   temperature: {
-    min: string;
-    max: string;
+    min: string | null;
+    max: string | null;
   };
   chanceOfRain: ChanceOfRain;
 };
@@ -47,8 +47,8 @@ function parseWeatherResponse(weather: WeatherResponse): Weather {
     title: weather.title,
     telop: forecast.telop,
     temperature: {
-      min: forecast.temperature.min.celsius,
-      max: forecast.temperature.max.celsius,
+      min: forecast.temperature.min?.celsius ?? null,
+      max: forecast.temperature.max?.celsius ?? null,
     },
     chanceOfRain: forecast.chanceOfRain,
   };
@@ -65,9 +65,12 @@ export function getTodaysWeather(): Weather {
 }
 
 export function formatTelopToEmoji(telop: string): string {
+  // 長い文字列を先に並べて部分マッチを防ぐ
   const emojiMap: Record<string, string> = {
     晴れ: ':sunny:',
+    晴: ':sunny:',
     曇り: ':cloud:',
+    曇: ':cloud:',
     雨: ':cloud_rain:',
     雪: ':snowman:',
   };
