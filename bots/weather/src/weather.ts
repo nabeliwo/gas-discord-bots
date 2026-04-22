@@ -81,7 +81,13 @@ export function getTodaysWeather(): Weather {
     '&forecast_days=1',
   ].join('');
 
-  const response = UrlFetchApp.fetch(url, { method: 'get' });
+  const response = UrlFetchApp.fetch(url, { method: 'get', muteHttpExceptions: true });
+  if (response.getResponseCode() === 429) {
+    throw new Error('Open-Meteo API の1日のリクエスト上限を超えました。明日リセットされます。');
+  }
+  if (response.getResponseCode() !== 200) {
+    throw new Error(`Open-Meteo API エラー: HTTP ${response.getResponseCode()}`);
+  }
   const json = JSON.parse(response.getContentText()) as OpenMeteoResponse;
 
   const max = json.daily.temperature_2m_max[0];
